@@ -1,3 +1,5 @@
+#inversion counting algorithm using merge sort
+
 def mergeSort(arr):
     if len(arr) <= 1:
          return arr, 0

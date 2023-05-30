@@ -1,6 +1,7 @@
-def quick_sort(A,l,r):
+#there are 3 programs in this problem set, all of them revolve around the pivot choice
+
+def quick_sort(A,l,r, count):
     if l <= r:
-        print(A)
 
         i = choose_pivot(A,l,r)
 
@@ -10,12 +11,16 @@ def quick_sort(A,l,r):
 
         j = partition(A,l,r)
         
-        quick_sort(A,l,j-1)
-        quick_sort(A,j+1,r)
+        l_array_len = quick_sort(A,l,j-1, count)
+        r_array_len = quick_sort(A,j+1,r, count)
+
+        count += (r-l) + l_array_len + r_array_len
+
+        return count
 
     #redundant, but easier to read and understand
     else:
-        return
+        return 0
  
  
 def partition(A,l,r):
@@ -43,13 +48,16 @@ def partition(A,l,r):
  
  
 def choose_pivot(A,l,r):
-    #there are 3 programs in this problem set, all of them revolve around the pivot choice
     return l
  
  
-A = [3,1,2,4]
+fp = open("C:\Code\Python\StanfordAlgorithms\ProblemSet2\quickSort.txt", 'r')
+data = fp.readlines()
+A = [int(x.strip()) for x in data]
+
+#comparison counter
+count = 0
 l = 0
 r = len(A)-1
  
-quick_sort(A,l,r)
-print(A)
+print(quick_sort(A,l,r, count))

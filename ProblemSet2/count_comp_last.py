@@ -10,8 +10,6 @@ def quick_sort(A,l,r, count):
         A[i] = temp
 
         j = partition(A,l,r)
-
-        #minus 1 cause we're just adding them to the comparison count
         
         l_array_len = quick_sort(A,l,j-1, count)
         r_array_len = quick_sort(A,j+1,r, count)

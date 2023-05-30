@@ -1,17 +1,21 @@
 def quick_sort(A,l,r):
-    if l < r:
+    if l <= r:
         print(A)
 
         i = choose_pivot(A,l,r)
 
-        temp = A[i]
-        A[i] = A[l]
-        A[l] = temp
+        temp = A[l]
+        A[l] = A[i]
+        A[i] = temp
 
         j = partition(A,l,r)
         
         quick_sort(A,l,j-1)
         quick_sort(A,j+1,r)
+
+    #redundant, but easier to read and understand
+    else:
+        return
  
  
 def partition(A,l,r):
@@ -22,7 +26,7 @@ def partition(A,l,r):
  
     #main partition
     while j <= r:
-        if A[j] <= p:
+        if A[j] < p:
             temp = A[i]
             A[i] = A[j]
             A[j] = temp
@@ -40,10 +44,10 @@ def partition(A,l,r):
  
 def choose_pivot(A,l,r):
     #there are 3 programs in this problem set, all of them revolve around the pivot choice
-    return 0
+    return l
  
  
-A = [3,1,2,4,5,6]
+A = [3,1,2,4]
 l = 0
 r = len(A)-1
  

@@ -25,4 +25,12 @@ while True:
         count += 1
         iter = graph[iter][0]
 
-        
+        def select_random_edge(self):
+        rand_edge = randint(0, self.edges-1)
+        for vertex, vertex_edges in self.graph.items():
+            if len(vertex_edges) < rand_edge:
+                rand_edge -= len(vertex_edges)
+            else:
+                from_vertex = vertex
+                to_vertex = vertex_edges[rand_edge-1]
+                return from_vertex, to_vertex

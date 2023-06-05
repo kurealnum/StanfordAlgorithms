@@ -8,9 +8,6 @@ start = "4"
 end = "3"
 iter = start
 
-ran_vert_one = "3"
-ran_vert_two = graph[ran_vert_one][0]
-
 while True:
     if start == end:
         print("We're already here")
@@ -24,5 +21,3 @@ while True:
     else:
         count += 1
         iter = graph[iter][0]
-
-        

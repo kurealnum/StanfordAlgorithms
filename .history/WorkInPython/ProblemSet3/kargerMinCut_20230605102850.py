@@ -32,4 +32,3 @@ def select_random_edge(E, graph):
             return from_vertex, to_vertex
      
 print(select_random_edge(E, graph), "asasad")
-print(graph.items())

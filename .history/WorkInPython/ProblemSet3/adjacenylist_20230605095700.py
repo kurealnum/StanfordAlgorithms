@@ -24,5 +24,3 @@ while True:
     else:
         count += 1
         iter = graph[iter][0]
-
-        

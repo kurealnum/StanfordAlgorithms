@@ -31,5 +31,4 @@ def select_random_edge(E, graph):
             to_vertex = vertex_edges[rand_edge-1]
             return from_vertex, to_vertex
      
-print(select_random_edge(E, graph), "asasad")
-print(graph.items())
+print(select_random_edge(E, graph))

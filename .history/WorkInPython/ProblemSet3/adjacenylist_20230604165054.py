@@ -1,15 +1,14 @@
-graph = {"1": ["2","3","4"],
-         "2": ["1","3"],
-         "3": ["1","2"],
-         "4": ["1"]}
+graph = {"A": ["B","C","D"],
+         "B": ["A","C"],
+         "C": ["A","B"],
+         "D": ["A"]}
 
 count = 0
-start = "4"
-end = "3"
+start = "E"
+end = "A"
 iter = start
 
-ran_vert_one = "3"
-ran_vert_two = graph[ran_vert_one][0]
+graph["E"] = ["B","C"]
 
 while True:
     if start == end:
@@ -24,5 +23,3 @@ while True:
     else:
         count += 1
         iter = graph[iter][0]
-
-        

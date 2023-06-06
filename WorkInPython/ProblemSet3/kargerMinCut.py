@@ -23,6 +23,7 @@ E = V * (V-1)/2
 
 def select_random_edge(E, graph):
     rand_edge = random.randint(0, E-1)
+    print(rand_edge)
     for vertex, vertex_edges in graph.items():
         if len(vertex_edges) < rand_edge:
             rand_edge -= len(vertex_edges)
@@ -30,6 +31,10 @@ def select_random_edge(E, graph):
             from_vertex = vertex
             to_vertex = vertex_edges[rand_edge-1]
             return from_vertex, to_vertex
+
+    from_vertex = vertex
+    to_vertex = vertex_edges[rand_edge-1] 
+    return from_vertex, to_vertex
      
-print(select_random_edge(E, graph), "asasad")
-print(graph.items())
+print(select_random_edge(E, graph))
+

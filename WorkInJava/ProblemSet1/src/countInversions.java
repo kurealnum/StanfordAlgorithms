@@ -1,10 +1,16 @@
 import java.util.Arrays;
 
 public class countInversions {
-    public static void main(String[] args) {
-        Integer[] arr = new Integer[]{3, 4, 1, 2,5,7,6};
 
-        System.out.println(Arrays.toString(mergeSort(arr))); 
+    //main process
+    public static void main(String[] args) {
+        Integer[] arr = new Integer[]{3,4,2,1};
+
+        returnTwo res_arr = mergeSort(arr, 0);
+        int inver_count = mergeAndCountInversions(arr);
+
+        System.out.println(Arrays.toString(res_arr.returnArr)); 
+        System.out.println(inver_count);
     }
 
 
@@ -18,9 +24,9 @@ public class countInversions {
 
             int left_inversions = mergeAndCountInversions(leftArr);
             int right_inversions = mergeAndCountInversions(rightArr);
-            int split_inversions = mergeAndCountInversions(arr);
+            returnTwo split_inversions = mergeSort(arr, 0);
 
-            int total_inversions = left_inversions + right_inversions + split_inversions;
+            int total_inversions = left_inversions + right_inversions + split_inversions.inver_count;
 
             return total_inversions;
         }
@@ -29,7 +35,7 @@ public class countInversions {
     }
 
 
-    public static Integer[] mergeSort(Integer[] arr) {
+    public static returnTwo mergeSort(Integer[] arr, int inver_count) {
         if (arr.length > 1) {
             //variables for simplicity 
             Integer l = 0;
@@ -40,22 +46,24 @@ public class countInversions {
             Integer[] rightArr = Arrays.copyOfRange(arr, Math.floorDiv(r, 2)+1, r+1);
 
             //recursive function calls
-            leftArr = mergeSort(leftArr);
-            rightArr = mergeSort(rightArr);
+            leftArr = mergeSort(leftArr, inver_count).returnArr;
+            rightArr = mergeSort(rightArr, inver_count).returnArr;
 
             int i = 0; int j = 0; int p = 0;
 
+            //merging process
             while (i < leftArr.length && j < rightArr.length) {
-                if (rightArr[j] < leftArr[i]) {
-                    returnArr[p] = rightArr[j];
-
-                    j++;
-                }
-
-                else {
+                if (leftArr[i] <= rightArr[j]) {
                     returnArr[p] = leftArr[i];
 
                     i++;
+                }
+
+                else {
+                    returnArr[p] = rightArr[j];
+
+                    j++;
+                    inver_count += (Math.floorDiv(r, 2)+1)-i;
                 }
                 p++;
             }
@@ -74,11 +82,15 @@ public class countInversions {
                 j++; p++;
             }
 
+            //sorted array is index 0, inver count is index 1
+            returnTwo res = new returnTwo(returnArr, inver_count);
 
-            return returnArr;
+            return res;
         }
+        returnTwo res = new returnTwo(arr, inver_count);
 
-        return arr;
+        return res;
         
     }
+
 }

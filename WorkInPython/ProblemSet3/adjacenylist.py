@@ -1,3 +1,13 @@
+'''
+pick an edge at random, and contract that together with the other node 
+(i.e, for an edge {F,G}, contract F and G to make supernode F,G)
+
+the supernode should not have edges coming "out" from it
+i.e., if you join a supernode AB with node C, and theres a node D pointing to
+
+FIGURE OUT WHAT WE'RE GETTING RID OF EVERY TIME WE MERGE
+'''
+
 import random
 
 graph = {"A": ["B","C","D"],
@@ -23,6 +33,7 @@ def slow_find(graph, start, end):
             count += 1
             iter = graph[iter][0]
 
+
 #adding to node1, removing node2
 def merge_node(graph, node1, node2):
     #create the new list
@@ -44,21 +55,37 @@ def merge_node(graph, node1, node2):
             graph[node].remove(node2)
 
 
-while len(graph) > 2:
-    #keys of the graph hashmap
-    graph_vertices = list(graph.keys())
-    #random graph index with the graph vertices
-    random_graph_index = graph_vertices[random.randint(0,len(graph)-1)]
+def main(graph):
+    E = 0
 
-    length_of_node1 = len(graph[random_graph_index])
-    random_graph_edge = random.randint(0,length_of_node1-1) #i say "edge" lightly because its not technically an edge
+    for vertex, edges in graph.items():
+        E += len(edges)
 
-    #node 1 and 2 correspond to node1 and node2 in merge_node()
-    node1 = random_graph_index
-    node2 = graph[random_graph_index][random_graph_edge]
+    print(E)
+    print(graph)
+    while len(graph) > 2:
+        #keys of the graph hashmap
+        graph_vertices = list(graph.keys())
+        #random graph index with the graph vertices
+        random_graph_index = graph_vertices[random.randint(0,len(graph)-1)]
 
-    #merging process
-    merge_node(graph, node1, node2)
+        length_of_node1 = len(graph[random_graph_index])
+        random_graph_edge = random.randint(0,length_of_node1-1) #i say "edge" lightly because its not technically an edge
 
-print(graph)
+        #node 1 and 2 correspond to node1 and node2 in merge_node()
+        node1 = random_graph_index
+        node2 = graph[random_graph_index][random_graph_edge]
+
+        #merging process
+        merge_node(graph, node1, node2)
+
+
+main(graph)
+
+edges = []
+for node, neighs in graph.items():
+  for neigh in neighs:
+    edges.append([node, neigh])
+
+print(edges)
         

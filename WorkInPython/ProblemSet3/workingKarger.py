@@ -2,18 +2,28 @@ from random import choice
 from copy import deepcopy
 
 def contract(graph):
+    #random vertices
     u = choice(list(graph.keys()))
     v = choice(graph[u])
+
+    #setting the new key
     new_key = u+"-"+v 
     graph[new_key] = graph[u] + graph[v]
+
+    #removing the old keys
     del graph[u]
     del graph[v]
+
+    #iterate thru graph 
     for key in graph.keys():
         copy = graph[key][:]
+        #if True, go thru the contents of key, remove the original nodes
         if new_key == key:
             for item in copy:
                 if item == u or item == v:
                     graph[key].remove(item)
+
+        #if the key isnt the new key, go thru the contents of key, remove the original nodes, and add the new node
         else:
             for item in copy:
                 if item == u or item == v:

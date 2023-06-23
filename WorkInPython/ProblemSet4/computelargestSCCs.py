@@ -1,6 +1,6 @@
 #Kosaraju's algorithms
-
 #do not print the graph, its 5 million lines in a .txt so...
+from collections import defaultdict
 graph = {}
 
 

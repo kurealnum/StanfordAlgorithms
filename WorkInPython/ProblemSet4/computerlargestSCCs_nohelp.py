@@ -30,14 +30,20 @@ def first_dfs(G, s, visited, stack):
     visited[s] = True
 
     for v in G[s]:
-        if visited[v] is True:
-            stack.append(v)
-            return
-        
-        else:
+        if not visited[v]:
             first_dfs(G, v, visited, stack)
 
     stack.append(s)
+
+
+def second_dfs(G, s, visited, SCC):
+    visited[s] = True
+
+    for v in G[s]:
+        if not visited[v]:
+            first_dfs(G, v, visited, SCC)
+
+    SCC.append(s)    
 
 
 #main code
@@ -54,4 +60,23 @@ for i in range(1, len(vertices) + 1):
     if not visited[i]:
         first_dfs(graph, i, visited, stack)
 
-print(stack)
+#reset visited, add an array for all_sccs
+visited = [False] * (len(vertices) + 1)
+all_scc = []
+
+while stack:
+    i = stack.pop()
+
+    if not visited[i]:
+        SCC = []
+        second_dfs(grev, i, visited, SCC)
+
+        if len(all_scc) > 5: 
+            for i in range(len(all_scc)):
+                if len(all_scc[i]) < len(SCC):
+                    all_scc[i] = SCC
+
+        else:
+            all_scc.append(SCC)
+
+print(all_scc)

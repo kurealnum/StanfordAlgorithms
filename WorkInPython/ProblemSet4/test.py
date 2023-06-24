@@ -1,2 +1,2 @@
-for i in range(1,5):
-    print(i)
+x = []
+x.append(3)

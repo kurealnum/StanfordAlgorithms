@@ -1,14 +1,16 @@
 #Kosaraju's algorithms. m = # of edges, n = # of vertices
 #do not print the graph, its 5 million lines in a .txt so...
+import sys #import sys for recursion limit
 from collections import defaultdict
 
 #normal and reversed graph
+vertices = set()
 graph = defaultdict(list)
 grev = defaultdict(list)
 
 
 #reading the file
-with open('test.txt', "r") as f:
+with open('SCC.txt', "r") as f:
     data = f.readlines()
     for row in data:
         row = row.strip()
@@ -17,7 +19,10 @@ with open('test.txt', "r") as f:
 
         vertex_outs = row[1:]
         graph[row[0]] = vertex_outs + graph.get(row[0], [])
-        
+
+        #get ALL the vertices (i.e. don't miss vertices that aren't a dict key!)
+        vertices.update(set(row))
+
 
 #O(m + n) 
 def reverse_graph(g, grev):
@@ -50,11 +55,15 @@ def second_dfs(G, s, visited, SCC):
 
 #--------------main code--------------
 
+#setting recursion depth limit
+sys.setrecursionlimit(10000)
+print("Set recursion limit")
+
 #reversing the graph (grev is the reversed graph)
 reverse_graph(graph, grev)
+print("Reversed the graph")
 
 #intial variables
-vertices = list(graph.keys())
 visited = [False] * (len(vertices) + 1)
 stack = []
 
@@ -62,6 +71,8 @@ stack = []
 for i in range(1, len(vertices) + 1):
     if not visited[i]:
         first_dfs(graph, i, visited, stack)
+
+print("Passed first DFS")
 
 #reset visited, add an array for all_sccs
 visited = [False] * (len(vertices) + 1)
@@ -88,6 +99,8 @@ while stack:
             all_scc.append(SCC)
 
 biggest_SCC = []
+
+print("Passed second DFS")
 
 #getting the counts
 for i in all_scc:
